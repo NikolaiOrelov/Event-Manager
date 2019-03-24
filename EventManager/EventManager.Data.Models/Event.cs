@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EventManager.Data.Models
+{
+    public class Event
+    {
+        public Event()
+        {
+            UserEvent = new List<UserEvent>();
+        }
+
+        [Key]
+        public uint Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
+
+        [Range(0,5)]
+        public byte Raiting { get; set; }
+
+        public Address Address { get; set; }
+        [Required]
+        [ForeignKey("Address")]
+        public uint AddressId { get; set; }
+        
+        public ICollection<UserEvent> UserEvent { get; set; }
+    }
+}
