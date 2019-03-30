@@ -14,7 +14,7 @@ namespace EventManager.Data.Models
 
         public Event Event { get; set; }
         [ForeignKey("User")]
-        public uint EventId { get; set; }
+        public int EventId { get; set; }
         
     }
 }

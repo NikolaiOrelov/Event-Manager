@@ -170,7 +170,8 @@ namespace EventManager.Migrations
                 name: "Cities",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     CountryCode = table.Column<string>(nullable: true)
                 },
@@ -189,9 +190,10 @@ namespace EventManager.Migrations
                 name: "Addresses",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
-                    CityId = table.Column<long>(nullable: true)
+                    CityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -208,11 +210,12 @@ namespace EventManager.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Raiting = table.Column<byte>(nullable: false),
-                    AddressId = table.Column<long>(nullable: false),
+                    AddressId = table.Column<int>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Link = table.Column<string>(nullable: true)
@@ -233,7 +236,7 @@ namespace EventManager.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    EventId = table.Column<long>(nullable: false)
+                    EventId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

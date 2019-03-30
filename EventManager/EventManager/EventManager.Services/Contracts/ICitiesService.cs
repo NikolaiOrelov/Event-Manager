@@ -7,8 +7,8 @@ namespace EventManager.Services.Contracts
 {
     public interface ICitiesService
     {
-        uint CreateCity(string name, string countryCode);
+        int CreateCity(string name, string countryCode);
 
-        uint GetIdByName(string name);
+        int GetIdByName(string name);
     }
 }

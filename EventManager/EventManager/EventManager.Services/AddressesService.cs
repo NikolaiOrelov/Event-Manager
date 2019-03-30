@@ -19,11 +19,11 @@ namespace EventManager.Services
             this.context = context;
         }
 
-        public uint CreateAddress(string name, string cityName, string countryCode)
+        public int CreateAddress(string name, string cityName, string countryCode)
         {
             if (context.Cities.Any(c => c.Name.Contains(cityName)))
             {
-                uint cityId = citiesService.GetIdByName(cityName);
+                var cityId = citiesService.GetIdByName(cityName);
 
                 var address = new Address() { Name = name, CityId = cityId};
 

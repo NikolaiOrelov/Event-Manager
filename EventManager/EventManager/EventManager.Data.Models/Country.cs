@@ -9,7 +9,7 @@ namespace EventManager.Data.Models
     {
         [Key]
         public string CountryCode { get; set; }
-
+            
         [Required]
         public string Name { get; set; }
     }

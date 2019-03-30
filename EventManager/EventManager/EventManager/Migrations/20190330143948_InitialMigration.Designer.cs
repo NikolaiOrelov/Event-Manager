@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventManager.Migrations
 {
     [DbContext(typeof(EventManagerDbContext))]
-    [Migration("20190329082626_InitialMigration")]
+    [Migration("20190330143948_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,11 @@ namespace EventManager.Migrations
 
             modelBuilder.Entity("EventManager.Data.Models.Address", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CityId");
+                    b.Property<int?>("CityId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -40,8 +41,9 @@ namespace EventManager.Migrations
 
             modelBuilder.Entity("EventManager.Data.Models.City", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CountryCode");
 
@@ -70,10 +72,11 @@ namespace EventManager.Migrations
 
             modelBuilder.Entity("EventManager.Data.Models.Event", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AddressId");
+                    b.Property<int>("AddressId");
 
                     b.Property<DateTime>("Date");
 
@@ -99,7 +102,7 @@ namespace EventManager.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<long>("EventId");
+                    b.Property<int>("EventId");
 
                     b.HasKey("UserId", "EventId");
 

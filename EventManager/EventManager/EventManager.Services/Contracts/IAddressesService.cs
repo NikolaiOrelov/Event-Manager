@@ -6,6 +6,6 @@ namespace EventManager.Services.Contracts
 {
     public interface IAddressesService 
     {
-        uint CreateAddress(string name, string cityName, string countryCode);
+        int CreateAddress(string name, string cityName, string countryCode);
     }
 }

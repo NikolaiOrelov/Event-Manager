@@ -1,6 +1,7 @@
 ﻿using EventManager.Services.Contracts;
 using EventManager.ViewModels.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace EventManager.Controllers
 {
@@ -26,10 +27,10 @@ namespace EventManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string name, string CountyCode)
+        public IActionResult Create(string name, string countryCode)
         {
             ;
-            citiesService.CreateCity(name, CountyCode);
+            citiesService.CreateCity(name, countryCode);
             return RedirectToAction("Index", "Home", new { area = "" });
         }
     }

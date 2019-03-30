@@ -9,13 +9,13 @@ namespace EventManager.Data.Models
     public class Address
     {
         [Key]
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         public City City { get; set; }
         [ForeignKey("City")]
-        public uint? CityId { get; set; }
+        public int? CityId { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace EventManager.Services
             this.context = context;
         }
 
-        public uint CreateCity(string name, string countryCode)
+        public int CreateCity(string name, string countryCode)
         {
             ;
             if (!context.Countries.Any(c => c.CountryCode.Contains(countryCode)))
@@ -25,12 +25,15 @@ namespace EventManager.Services
 
             var city = new City() { Name = name, CountryCode = countryCode };
 
+            //****************
+            context.Cities.Add(city);
+            //***********
             context.SaveChanges();
 
             return city.Id;
         }
 
-        public uint GetIdByName(string name)
+        public int GetIdByName(string name)
         {
             var city = context.Cities.FirstOrDefault(c => c.Name == name);
 

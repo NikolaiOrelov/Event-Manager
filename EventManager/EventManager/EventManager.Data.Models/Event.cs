@@ -13,7 +13,7 @@ namespace EventManager.Data.Models
         }
 
         [Key]
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -27,7 +27,7 @@ namespace EventManager.Data.Models
         public Address Address { get; set; }
         [Required]
         [ForeignKey("Address")]
-        public uint AddressId { get; set; }
+        public int AddressId { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
