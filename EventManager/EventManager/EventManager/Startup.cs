@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using EventManager.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EventManager.Services.Contracts;
+using EventManager.Services;
 
 namespace EventManager
 {
@@ -34,12 +36,16 @@ namespace EventManager
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddDbContext<EventManagerDbContext>(options =>
                 options.UseSqlServer(ConfigurationData.connectionString, c => c.MigrationsAssembly("EventManager")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<EventManagerDbContext>();
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            services.AddScoped<ICountriesService, CountriesService>();
+            services.AddScoped<ICitiesService, CitiesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

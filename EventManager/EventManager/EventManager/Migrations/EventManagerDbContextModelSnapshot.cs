@@ -41,27 +41,27 @@ namespace EventManager.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CountryId");
+                    b.Property<string>("CountryCode");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryCode");
 
                     b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("EventManager.Data.Models.Country", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("CountryCode")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("CountryCode");
 
                     b.ToTable("Countries");
                 });
@@ -74,6 +74,12 @@ namespace EventManager.Migrations
                     b.Property<long>("AddressId");
 
                     b.Property<DateTime>("Date");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Link");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -291,8 +297,7 @@ namespace EventManager.Migrations
                 {
                     b.HasOne("EventManager.Data.Models.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CountryCode");
                 });
 
             modelBuilder.Entity("EventManager.Data.Models.Event", b =>

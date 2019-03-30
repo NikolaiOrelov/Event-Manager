@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EventManager.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,12 +52,12 @@ namespace EventManager.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    CountryCode = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Countries", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.CountryCode);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,17 +172,17 @@ namespace EventManager.Migrations
                 {
                     Id = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false)
+                    CountryCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cities_Countries_CountryId",
-                        column: x => x.CountryId,
+                        name: "FK_Cities_Countries_CountryCode",
+                        column: x => x.CountryCode,
                         principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CountryCode",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,7 +212,10 @@ namespace EventManager.Migrations
                     Name = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Raiting = table.Column<byte>(nullable: false),
-                    AddressId = table.Column<long>(nullable: false)
+                    AddressId = table.Column<long>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -294,9 +297,9 @@ namespace EventManager.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cities_CountryId",
+                name: "IX_Cities_CountryCode",
                 table: "Cities",
-                column: "CountryId");
+                column: "CountryCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_AddressId",
