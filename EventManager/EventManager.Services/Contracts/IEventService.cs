@@ -1,5 +1,7 @@
-﻿using EventManager.ViewModels.Models;
+﻿using EventManager.Data.Models;
+using EventManager.ViewModels.Models;
 using System;
+using System.Collections;
 
 namespace EventManager.Services.Contracts
 {
@@ -8,7 +10,9 @@ namespace EventManager.Services.Contracts
         int CreateEvent(string eventName, DateTime date, string description, string link,
             CreateAddressViewModel addressViewModel);
 
-        AllEventsIndexViewModel GetEvents();
+        IEnumerable GetAllEvents();
+
+        EventDetailsViewModel GetEventDetails(int eventId);
 
         void RemoveEvent(int id);
 

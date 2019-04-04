@@ -3,6 +3,7 @@ using EventManager.Data.Models;
 using EventManager.Services.Contracts;
 using EventManager.ViewModels.Models;
 using System;
+using System.Collections;
 using System.Linq;
 
 namespace EventManager.Services
@@ -31,6 +32,7 @@ namespace EventManager.Services
             }
 
             addressId = addressService.GetAddressIdByName(addressViewModel.AddressName);
+            Address address = context.Addresses.FirstOrDefault(x => x.Id == addressId);
 
             var newEvent = new Event()
             {
@@ -38,7 +40,8 @@ namespace EventManager.Services
                 Date = date,
                 Description = description,
                 Link = link,
-                AddressId = addressId
+                AddressId = addressId,
+                Address = address
             };
 
             context.Events.Add(newEvent);
@@ -47,9 +50,42 @@ namespace EventManager.Services
             return newEvent.Id;
         }
 
-        public AllEventsIndexViewModel GetEvents()
+        public IEnumerable GetAllEvents()
         {
-            throw new NotImplementedException();
+            var models = context.Events.Select(x => new IndexEventViewModel()
+            {
+                EventId = x.Id,
+                Name = x.EventName,
+                Date = x.Date,
+                Address = x.Address.AddressName,
+                City = x.Address.City.CityName
+            }).ToList();
+            
+            return models;
+        }
+
+        public EventDetailsViewModel GetEventDetails(int eventId)
+        {
+            var currentEvent = this.context.Events.FirstOrDefault(x => x.Id == eventId);
+            Address currentAddress = context.Addresses.FirstOrDefault(x => x.Id == currentEvent.AddressId);
+            City currentCity = context.Cities.FirstOrDefault(x => x.Id == currentAddress.CityId);
+            Country country = context.Countries.FirstOrDefault(x => x.CountryCode == currentCity.CountryCode);
+
+            var modelDetails = new EventDetailsViewModel()
+            {
+                Id = currentEvent.Id,
+                EventName = currentEvent.EventName,
+                Date = currentEvent.Date,
+                Address = currentAddress.AddressName,
+                Raiting = currentEvent.Raiting,
+                City = currentCity.CityName,
+                Country = country.CountryCode,
+                Description = currentEvent.Description,
+                Link = currentEvent.Link
+
+            };
+
+            return modelDetails;
         }
 
         public void GiveRating(int id)

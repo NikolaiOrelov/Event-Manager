@@ -22,7 +22,9 @@ namespace EventManager.Services
                 throw new InvalidOperationException("There is no Country with this Code!");
             }
 
-            var city = new City() { CityName = cityName, CountryCode = countryCode };
+            Country country = context.Countries.FirstOrDefault(x => x.CountryCode == countryCode);
+
+            var city = new City() { CityName = cityName, CountryCode = countryCode, Country = country};
 
             this.context.Cities.Add(city);
             this.context.SaveChanges();

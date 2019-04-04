@@ -29,8 +29,9 @@ namespace EventManager.Services
 
             cityId = this.citiesService.GetCityIdByName(cityViewModel.CityName);
 
-            var address = new Address() { AddressName = addressName, CityId = cityId };
-
+            City city = context.Cities.FirstOrDefault(x => x.Id == cityId);
+            var address = new Address() { AddressName = addressName, CityId = cityId, City = city };
+            
             this.context.Addresses.Add(address);
             this.context.SaveChanges();
 
