@@ -6,8 +6,8 @@ namespace EventManager.ViewModels.Models
 {
     public class EventDetailsViewModel
     {
-        public int Id { get; set; }
-        
+        public int EventId { get; set; }
+
         public string EventName { get; set; }
         
         public DateTime Date { get; set; }

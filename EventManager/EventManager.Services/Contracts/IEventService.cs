@@ -13,9 +13,7 @@ namespace EventManager.Services.Contracts
         IEnumerable GetAllEvents();
 
         EventDetailsViewModel GetEventDetails(int eventId);
-
-        void RemoveEvent(int id);
-
+        
         void GiveRating(int id);
     }
 }

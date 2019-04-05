@@ -25,14 +25,17 @@ namespace EventManager.Services
         {
             var addressId = default(int);
 
-            if (!context.Addresses.Any(a => a.AddressName.Contains(addressViewModel.AddressName)))
+            if (IsAddressNotExist(addressViewModel))
             {
                 addressId = addressService.CreateAddress(addressViewModel.AddressName,
-                    addressViewModel.CityViewModel);
+                addressViewModel.CityViewModel);
+            }
+            else
+            {
+                addressId = addressService.GetAddressIdByName(addressViewModel.AddressName);
             }
 
-            addressId = addressService.GetAddressIdByName(addressViewModel.AddressName);
-            Address address = context.Addresses.FirstOrDefault(x => x.Id == addressId);
+            var address = context.Addresses.FirstOrDefault(x => x.Id == addressId);
 
             var newEvent = new Event()
             {
@@ -67,19 +70,20 @@ namespace EventManager.Services
         public EventDetailsViewModel GetEventDetails(int eventId)
         {
             var currentEvent = this.context.Events.FirstOrDefault(x => x.Id == eventId);
+
             Address currentAddress = context.Addresses.FirstOrDefault(x => x.Id == currentEvent.AddressId);
             City currentCity = context.Cities.FirstOrDefault(x => x.Id == currentAddress.CityId);
             Country country = context.Countries.FirstOrDefault(x => x.CountryCode == currentCity.CountryCode);
 
             var modelDetails = new EventDetailsViewModel()
             {
-                Id = currentEvent.Id,
+                EventId = currentEvent.Id,
                 EventName = currentEvent.EventName,
                 Date = currentEvent.Date,
-                Address = currentAddress.AddressName,
+                Address = currentEvent.Address.AddressName,
                 Raiting = currentEvent.Raiting,
-                City = currentCity.CityName,
-                Country = country.CountryCode,
+                City = currentEvent.Address.City.CityName,
+                Country = currentEvent.Address.City.Country.Name,
                 Description = currentEvent.Description,
                 Link = currentEvent.Link
 
@@ -93,9 +97,9 @@ namespace EventManager.Services
             throw new NotImplementedException();
         }
 
-        public void RemoveEvent(int id)
+        private bool IsAddressNotExist(CreateAddressViewModel addressViewModel)
         {
-            throw new NotImplementedException();
+            return !context.Addresses.Any(a => a.AddressName.Contains(addressViewModel.AddressName));
         }
     }
 }

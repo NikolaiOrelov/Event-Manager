@@ -22,16 +22,19 @@ namespace EventManager.Services
         {
             var cityId = default(int);
 
-            if (!context.Cities.Any(c => c.CityName.Contains(cityViewModel.CityName)))
+            if (IsCityNotExist(cityViewModel))
             {
                 cityId = this.citiesService.CreateCity(cityViewModel.CityName, cityViewModel.CountryCode);
             }
+            else
+            {
+                cityId = this.citiesService.GetCityIdByName(cityViewModel.CityName);
+            }
 
-            cityId = this.citiesService.GetCityIdByName(cityViewModel.CityName);
+            var city = context.Cities.FirstOrDefault(x => x.Id == cityId);
 
-            City city = context.Cities.FirstOrDefault(x => x.Id == cityId);
             var address = new Address() { AddressName = addressName, CityId = cityId, City = city };
-            
+
             this.context.Addresses.Add(address);
             this.context.SaveChanges();
 
@@ -43,6 +46,11 @@ namespace EventManager.Services
             var address = this.context.Addresses.FirstOrDefault(a => a.AddressName == addressName);
 
             return address.Id;
+        }
+
+        private bool IsCityNotExist(CreateCityViewModel cityViewModel)
+        {
+            return !context.Cities.Any(c => c.CityName.Contains(cityViewModel.CityName));
         }
     }
 }

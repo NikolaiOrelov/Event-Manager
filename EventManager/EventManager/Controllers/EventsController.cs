@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventManager.Data;
+﻿using EventManager.Data;
 using EventManager.Data.Models;
 using EventManager.Services.Contracts;
 using EventManager.ViewModels.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace EventManager.Controllers
 {
@@ -70,7 +68,7 @@ namespace EventManager.Controllers
             return View(editEventViewModel);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -83,11 +81,15 @@ namespace EventManager.Controllers
 
             if (await TryUpdateModelAsync<Event>(
                 eventToUpdate,
-                "",
+               "",
                 e => e.EventName,
                 e => e.Date,
                 e => e.Description,
-                e => e.Link))
+               e => e.Link)
+               || await TryUpdateModelAsync<Event>(
+                eventToUpdate,
+               "",
+                e => e.Description))
             {
                 try
                 {
@@ -102,6 +104,7 @@ namespace EventManager.Controllers
                         "see your system administrator.");
                 }
             }
+
             return View(eventToUpdate);
         }
 
@@ -109,7 +112,7 @@ namespace EventManager.Controllers
         {
             var model = eventService.GetAllEvents();
 
-            return this.View(model);
+            return View(model);
         }
     }
 }
