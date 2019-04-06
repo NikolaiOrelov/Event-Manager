@@ -50,7 +50,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { controller = "Events", action = "Edit", id = item.EventId }) |
-                @Html.ActionLink("Details", "Details", new { controller = "Events", action = "Details", id = item.EventId })
+                @Html.ActionLink("Details", "Details", new { controller = "Events", action = "Details", id = item.EventId }) |
+                @Html.ActionLink("Add to My List", "AddToList", new { controller = "EventLists", action = "AddToList", id = item.EventId })
             </td>
         </tr>
 }

@@ -2,6 +2,7 @@
 using EventManager.Data.Models;
 using EventManager.Services.Contracts;
 using EventManager.ViewModels.Models;
+using System;
 using System.Linq;
 
 namespace EventManager.Services
@@ -12,12 +13,14 @@ namespace EventManager.Services
 
         private ICityService citiesService;
 
+        //Address Service Constructor, sets Services and DbContext:
         public AddressService(EventManagerDbContext context, ICityService citiesService)
         {
             this.context = context;
             this.citiesService = citiesService;
         }
 
+        //Read information about the address and creates it:
         public int CreateAddress(string addressName, CreateCityViewModel cityViewModel)
         {
             var cityId = default(int);
@@ -41,12 +44,20 @@ namespace EventManager.Services
             return address.Id;
         }
 
+        //Method that reads a string node with address name, search for it and return its id:
         public int GetAddressIdByName(string addressName)
         {
+            if (addressName == null)
+            {
+                throw new InvalidOperationException("There is no address with this name!");
+            }
+
             var address = this.context.Addresses.FirstOrDefault(a => a.AddressName == addressName);
 
             return address.Id;
         }
+
+        //Private Methods:
 
         private bool IsCityNotExist(CreateCityViewModel cityViewModel)
         {

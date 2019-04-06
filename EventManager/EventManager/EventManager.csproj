@@ -18,4 +18,9 @@
     <ProjectReference Include="..\EventManager.ViewModels\EventManager.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Views\MyEvents\" />
+  </ItemGroup>
+
 </Project>

@@ -14,12 +14,14 @@ namespace EventManager.Services
 
         private IAddressService addressService;
 
+        //Event Service Constructor, sets addressService and DbContext:
         public EventService(EventManagerDbContext context, IAddressService addressService)
         {
             this.context = context;
             this.addressService = addressService;
         }
 
+        //Read information about the event and the address and creates both, if necessary:
         public int CreateEvent(string eventName, DateTime date, string description, string link,
             CreateAddressViewModel addressViewModel)
         {
@@ -53,6 +55,7 @@ namespace EventManager.Services
             return newEvent.Id;
         }
 
+        //Method that we use in our Index.cshtml View class to show all events available:
         public IEnumerable GetAllEvents()
         {
             var models = context.Events.Select(x => new IndexEventViewModel()
@@ -67,6 +70,7 @@ namespace EventManager.Services
             return models;
         }
 
+        //Method that we use in our Details.cshtml View class to show all information about the current event:
         public EventDetailsViewModel GetEventDetails(int eventId)
         {
             var currentEvent = this.context.Events.FirstOrDefault(x => x.Id == eventId);
@@ -96,6 +100,8 @@ namespace EventManager.Services
         {
             throw new NotImplementedException();
         }
+
+        //Private Methods:
 
         private bool IsAddressNotExist(CreateAddressViewModel addressViewModel)
         {

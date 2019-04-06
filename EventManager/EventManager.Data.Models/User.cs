@@ -7,9 +7,9 @@ namespace EventManager.Data.Models
     {
         public User()
         {
-            this.UsersEvents = new List<UsersEvents>();
+            this.EventLists = new List<EventList>();
         }
 
-        public ICollection<UsersEvents> UsersEvents { get; set; }
+        public ICollection<EventList> EventLists { get; set; }
     }
 }

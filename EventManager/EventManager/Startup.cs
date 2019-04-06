@@ -1,4 +1,5 @@
 ﻿using EventManager.Data;
+using EventManager.Data.Models;
 using EventManager.Services;
 using EventManager.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -36,13 +37,18 @@ namespace EventManager
 
             services.AddDbContext<EventManagerDbContext>(options =>
                 options.UseSqlServer(ConfigurationData.connectionString, c => c.MigrationsAssembly("EventManager")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<EventManagerDbContext>();
+
+            //services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<EventManagerDbContext>()
+            //    .AddDefaultTokenProviders();
+
+            //services.AddDefaultIdentity<User>()
+            //    .AddEntityFrameworkStores<EventManagerDbContext>();
 
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventListService, EventListService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,11 +10,13 @@ namespace EventManager.Services
     {
         private EventManagerDbContext context;
 
+        //City Service Constructor, sets DbContext:
         public CityService(EventManagerDbContext context)
         {
             this.context = context;
         }
 
+        //Read information about the city and creates it:
         public int CreateCity(string cityName, string countryCode)
         {
             if (IsCountryNotExist(countryCode))
@@ -32,12 +34,20 @@ namespace EventManager.Services
             return city.Id;
         }
 
+        //Method that reads a string node with city name, search for it and return its id:
         public int GetCityIdByName(string cityName)
         {
+            if (cityName == null)
+            {
+                throw new InvalidOperationException("There is no city with this name!");
+            }
+
             var city = this.context.Cities.FirstOrDefault(c => c.CityName == cityName);
 
             return city.Id;
         }
+
+        //Private Methods:
 
         private bool IsCountryNotExist(string countryCode)
         {

@@ -1,23 +1,24 @@
 ﻿using EventManager.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Data
 {
-    public class EventManagerDbContext : IdentityDbContext
+    public class EventManagerDbContext : IdentityDbContext<User>
     {
         public EventManagerDbContext(DbContextOptions<EventManagerDbContext> options)
             : base(options) { }
 
         public DbSet<Event> Events { get; set; }
-
-        public DbSet<User> Users { get; set; }
+        
+        public DbSet<Address> Addresses { get; set; }
 
         public DbSet<City> Cities { get; set; }
 
         public DbSet<Country> Countries { get; set; }
 
-        public DbSet<Address> Addresses { get; set; }
+        public DbSet<EventList> EventLists { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,19 +34,19 @@ namespace EventManager.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<UsersEvents>()
-                .HasKey(ue => new { ue.UserId, ue.EventId });
+            builder.Entity<EventsEventLists>()
+                .HasKey(ee => new { ee.EventId, ee.EventListId });
 
 
-            builder.Entity<UsersEvents>()
-                    .HasOne(ue => ue.User)
-                    .WithMany(u => u.UsersEvents)
-                    .HasForeignKey(ue => ue.UserId);
+            builder.Entity<EventsEventLists>()
+                    .HasOne(ee => ee.Event)
+                    .WithMany(e => e.EventsEventLists)
+                    .HasForeignKey(ee => ee.EventId);
 
-            builder.Entity<UsersEvents>()
-                .HasOne(ue => ue.Event)
-                .WithMany(e => e.UsersEvents)
-                .HasForeignKey(ue => ue.EventId);
+            builder.Entity<EventsEventLists>()
+                .HasOne(ee => ee.Event)
+                .WithMany(e => e.EventsEventLists)
+                .HasForeignKey(ee => ee.EventId);
 
         }
     }

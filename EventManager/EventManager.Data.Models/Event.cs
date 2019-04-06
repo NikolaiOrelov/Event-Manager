@@ -9,7 +9,7 @@ namespace EventManager.Data.Models
     {
         public Event()
         {
-            this.UsersEvents = new List<UsersEvents>();
+            this.EventsEventLists = new List<EventsEventLists>();
         }
 
         [Key]
@@ -36,6 +36,6 @@ namespace EventManager.Data.Models
 
         public string Link { get; set; }
 
-        public ICollection<UsersEvents> UsersEvents { get; set; }
+        public ICollection<EventsEventLists> EventsEventLists { get; set; }
     }
 }
