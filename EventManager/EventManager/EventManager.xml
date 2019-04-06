@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventManager</name>
+    </assembly>
+    <members>
+        <member name="T:EventManager.Controllers.EventListsController">
+            <summary>
+            The class whaere current user saves here events
+            </summary>
+        </member>
+        <member name="M:EventManager.Controllers.EventListsController.AddToList(System.Int32)">
+            <summary>
+            Added Event to List
+            </summary>
+        </member>
+        <member name="M:EventManager.Controllers.EventListsController.Index">
+            <summary>
+            Return all Events in EventList to current User
+            </summary>
+        </member>
+        <member name="M:EventManager.Controllers.EventListsController.Remove(System.Int32)">
+            <summary>
+            Remove event from EventList
+            </summary>
+        </member>
+        <member name="T:EventManager.Controllers.EventsController">
+            <summary>
+            The class where can create, showe and edite Event
+            </summary>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.Index">
+            <summary>
+            Return all events
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.Create">
+            <summary>
+            Creates EventView for Front End:
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.Create(System.String,System.DateTime,System.String,System.String,EventManager.ViewModels.Models.CreateAddressViewModel)">
+            <summary>
+            Read information about the event and creates it:
+            </summary>
+            <param name="eventName"></param>
+            <param name="date"></param>
+            <param name="description"></param>
+            <param name="link"></param>
+            <param name="addressViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.Details(System.Int32)">
+            <summary>
+            Returns Details to current Event
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.Edit">
+            <summary>
+            Returns the ViewModel for "Edit" window:
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            /Performs the Edit button actions:
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.FileUpload(System.String)">
+            <summary>
+            Show Error from Edit
+            </summary>
+            <param name="errormsg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Controllers.EventsController.IsEventCreateStatementAreValid(System.String,System.DateTime,EventManager.ViewModels.Models.CreateAddressViewModel)">
+            <summary>
+            Check
+            </summary>
+            <param name="eventName"></param>
+            <param name="date"></param>
+            <param name="addressViewModel"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -14,6 +14,11 @@ namespace EventManager.Services
         private ICityService citiesService;
 
         //Address Service Constructor, sets Services and DbContext:
+        /// <summary>
+        /// Address Service Constructor, sets Services and DbContext:
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="citiesService"></param>
         public AddressService(EventManagerDbContext context, ICityService citiesService)
         {
             this.context = context;
@@ -21,6 +26,12 @@ namespace EventManager.Services
         }
 
         //Read information about the address and creates it:
+        /// <summary>
+        /// Read information about the address and creates it:
+        /// </summary>
+        /// <param name="addressName"></param>
+        /// <param name="cityViewModel"></param>
+        /// <returns></returns>
         public int CreateAddress(string addressName, CreateCityViewModel cityViewModel)
         {
             var cityId = default(int);
@@ -45,6 +56,11 @@ namespace EventManager.Services
         }
 
         //Method that reads a string node with address name, search for it and return its id:
+        /// <summary>
+        /// Method that reads a string node with address name, search for it and return its id:
+        /// </summary>
+        /// <param name="addressName"></param>
+        /// <returns></returns>
         public int GetAddressIdByName(string addressName)
         {
             if (addressName == null)

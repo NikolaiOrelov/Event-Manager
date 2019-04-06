@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventManager.Tests</name>
+    </assembly>
+    <members>
+        <member name="M:Tests.ControllersTests.CreateValidationIsWorkingIfNameIsNull">
+            <summary>
+            EventsController Create Method Tests:
+            </summary>
+        </member>
+        <member name="M:Tests.ControllersTests.CreateValidationIsWorkingIfDateIsMinValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Tests.ControllersTests.CreateValidationIsWorkingIfAddressViewModelIsNull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EventManager.Tests.ServicesTests.Setup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EventManager.Tests.ServicesTests.AddressCreateMethodValidationIsWorking">
+            <summary>
+            AddressService CreateAddress Method test:
+            </summary>
+        </member>
+        <member name="M:EventManager.Tests.ServicesTests.GetAddressIdByNameValidationIsWorking">
+            <summary>
+            AddressService GetAddressIdByName Method test:
+            </summary>
+        </member>
+        <member name="M:EventManager.Tests.ServicesTests.GetCityIdByNameValidationIsWorking">
+            <summary>
+            AddressService GetAddressIdByName Method test:
+            </summary>
+        </member>
+    </members>
+</doc>

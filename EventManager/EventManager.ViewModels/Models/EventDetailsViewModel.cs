@@ -12,8 +12,6 @@ namespace EventManager.ViewModels.Models
         
         public DateTime Date { get; set; }
         
-        public byte Raiting { get; set; }
-        
         public string Address { get; set; }
 
         public string City { get; set; }

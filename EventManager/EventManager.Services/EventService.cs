@@ -2,6 +2,7 @@
 using EventManager.Data.Models;
 using EventManager.Services.Contracts;
 using EventManager.ViewModels.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Linq;
@@ -15,6 +16,11 @@ namespace EventManager.Services
         private IAddressService addressService;
 
         //Event Service Constructor, sets addressService and DbContext:
+        /// <summary>
+        /// Event Service Constructor, sets addressService and DbContext:
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="addressService"></param>
         public EventService(EventManagerDbContext context, IAddressService addressService)
         {
             this.context = context;
@@ -22,6 +28,15 @@ namespace EventManager.Services
         }
 
         //Read information about the event and the address and creates both, if necessary:
+        /// <summary>
+        /// Read information about the event and the address and creates both, if necessary:
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <param name="date"></param>
+        /// <param name="description"></param>
+        /// <param name="link"></param>
+        /// <param name="addressViewModel"></param>
+        /// <returns></returns>
         public int CreateEvent(string eventName, DateTime date, string description, string link,
             CreateAddressViewModel addressViewModel)
         {
@@ -56,6 +71,10 @@ namespace EventManager.Services
         }
 
         //Method that we use in our Index.cshtml View class to show all events available:
+        /// <summary>
+        /// Method that we use in our Index.cshtml View class to show all events available:
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetAllEvents()
         {
             var models = context.Events.Select(x => new IndexEventViewModel()
@@ -71,13 +90,18 @@ namespace EventManager.Services
         }
 
         //Method that we use in our Details.cshtml View class to show all information about the current event:
+        /// <summary>
+        /// Method that we use in our Details.cshtml View class to show all information about the current event:
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         public EventDetailsViewModel GetEventDetails(int eventId)
         {
-            var currentEvent = this.context.Events.FirstOrDefault(x => x.Id == eventId);
-
-            Address currentAddress = context.Addresses.FirstOrDefault(x => x.Id == currentEvent.AddressId);
-            City currentCity = context.Cities.FirstOrDefault(x => x.Id == currentAddress.CityId);
-            Country country = context.Countries.FirstOrDefault(x => x.CountryCode == currentCity.CountryCode);
+            var currentEvent = this.context.Events
+                .Include(x=>x.Address)
+                .Include(x=>x.Address.City)
+                .Include(x => x.Address.City.Country)
+                .FirstOrDefault(x => x.Id == eventId);
 
             var modelDetails = new EventDetailsViewModel()
             {
@@ -85,22 +109,15 @@ namespace EventManager.Services
                 EventName = currentEvent.EventName,
                 Date = currentEvent.Date,
                 Address = currentEvent.Address.AddressName,
-                Raiting = currentEvent.Raiting,
                 City = currentEvent.Address.City.CityName,
                 Country = currentEvent.Address.City.Country.Name,
                 Description = currentEvent.Description,
                 Link = currentEvent.Link
-
             };
 
             return modelDetails;
         }
-
-        public void GiveRating(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         //Private Methods:
 
         private bool IsAddressNotExist(CreateAddressViewModel addressViewModel)

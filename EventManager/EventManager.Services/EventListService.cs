@@ -3,7 +3,6 @@ using EventManager.Data.Models;
 using EventManager.Services.Contracts;
 using EventManager.ViewModels.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +13,22 @@ namespace EventManager.Services
     {
         private EventManagerDbContext context;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public EventListService(EventManagerDbContext context)
         {
             this.context = context;
         }
-            
+
+        //User add Event to her EventList
+        /// <summary>
+        /// User add Event to her EventList
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="username"></param>
+        /// <returns>Returns EventList Id</returns>
         public int AddEvent(int eventId, string username)
         {
             var eventToAdd = context.Events.FirstOrDefault(e => e.Id == eventId);
@@ -27,50 +37,84 @@ namespace EventManager.Services
             {
                 Create(username);
             }
-            
+
 
             var eventList = context.EventLists
                 .Include(el => el.Owner)
+                .Include(el => el.EventsEventLists)
                 .FirstOrDefault(el => el.Owner.UserName == username);
+
+            if (!IsEventExistInCurrentEventList(eventId, eventList))
+            {
+                return -1;
+            }
 
             var eventEventList = new EventsEventLists()
             {
-                EventId=eventToAdd.Id,
-                Event=eventToAdd,
-                EventListId=eventList.Id,
-                EventList=eventList
+                EventId = eventToAdd.Id,
+                Event = eventToAdd,
+                EventListId = eventList.Id,
+                EventList = eventList
             };
 
-            this.context.Events.FirstOrDefault(e=>e.Id==eventToAdd.Id).EventsEventLists.Add(eventEventList);
-            this.context.EventLists.FirstOrDefault(el => el.Id == eventList.Id).EventsEventLists.Add(eventEventList);
+            context.Events
+                .FirstOrDefault(e => e.Id == eventToAdd.Id).EventsEventLists.Add(eventEventList);
+            context.EventLists
+                .FirstOrDefault(el => el.Id == eventList.Id).EventsEventLists.Add(eventEventList);
 
             context.SaveChanges();
 
             return eventList.Id;
         }
 
-        public void RemoveEvent(int eventId, int eventListId)
+        //Removed unneeded Event
+        /// <summary>
+        /// Removed unneeded Event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="username"></param>
+        public void RemoveEvent(int eventId, string username)
         {
-            var removeEvent = this.context.Events.Find(eventId);
-            removeEvent.EventsEventLists = null;
+            context.Events
+                .Include(x => x.EventsEventLists)
+                .FirstOrDefault(x => x.Id == eventId).EventsEventLists = null;
 
-            var removeEventList = this.context.EventLists.Find(eventListId);
-            removeEventList.EventsEventLists = null;
+            context.Events
+                 .Include(x => x.EventsEventLists)
+                 .FirstOrDefault(x => x.Id == eventId).EventsEventLists = null;
 
-            this.context.SaveChanges();
+            context.SaveChanges();
         }
 
-        public IEnumerable GetAllEvents(int eventListId)
+        //Returns all Events from EventList to current User
+        /// <summary>
+        /// Returns all Events from EventList to current User
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Returns all Events from EventList to current User</returns>
+        public IEnumerable GetAllEvents(string username)
         {
-            var eventList = this.context.EventLists.FirstOrDefault(el => el.Id==eventListId);
+            var eventList = context.EventLists
+                .Include(el => el.EventsEventLists)
+                .Include(el => el.Owner)
+                .Include(el => el.EventsEventLists)
+                .FirstOrDefault(el => el.Owner.UserName == username);
 
             var events = new List<Event>();
 
-            foreach (var currEvent in eventList.EventsEventLists)
+            if (eventList == null)
             {
-                events.Add(currEvent.Event);
+                return default(IEnumerable<IndexEventViewModel>);
             }
 
+            foreach (var currEvent in eventList.EventsEventLists)
+            {
+                events.Add(context.Events
+                    .Include(x => x.Address)
+                    .Include(x => x.Address.City)
+                    .Include(x => x.Address.City.Country)
+                    .FirstOrDefault(x => x.Id == currEvent.EventId));
+            }
 
             var models = events.Select(e => new IndexEventViewModel()
             {
@@ -84,23 +128,31 @@ namespace EventManager.Services
             return models;
         }
 
-        private bool IsEventListNotExist(string username)
-        {
-            return !this.context.EventLists.Any(x => x.Owner.UserName.Contains(username));
-        }
-
         private void Create(string username)
         {
-            var owner = this.context.Users.FirstOrDefault(u => u.UserName == username);
+            var owner = context.Users.FirstOrDefault(u => u.UserName == username);
 
             var eventList = new EventList()
             {
                 Owner = owner
             };
 
-            this.context.EventLists.Add(eventList);
+            context.EventLists.Add(eventList);
 
-            this.context.SaveChanges();
+            context.SaveChanges();
         }
+
+
+        private static bool IsEventExistInCurrentEventList(int eventId, EventList eventList)
+        {
+            return eventList.EventsEventLists.FirstOrDefault(x => x.EventId == eventId) == null;
+        }
+
+
+        private bool IsEventListNotExist(string username)
+        {
+            return !context.EventLists.Any(x => x.Owner.UserName.Contains(username));
+        }
+
     }
 }

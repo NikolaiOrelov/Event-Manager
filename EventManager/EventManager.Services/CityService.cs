@@ -11,12 +11,22 @@ namespace EventManager.Services
         private EventManagerDbContext context;
 
         //City Service Constructor, sets DbContext:
+        /// <summary>
+        /// City Service Constructor, sets DbContext:
+        /// </summary>
+        /// <param name="context"></param>
         public CityService(EventManagerDbContext context)
         {
             this.context = context;
         }
 
         //Read information about the city and creates it:
+        /// <summary>
+        /// Read information about the city and creates it:
+        /// </summary>
+        /// <param name="cityName"></param>
+        /// <param name="countryCode"></param>
+        /// <returns></returns>
         public int CreateCity(string cityName, string countryCode)
         {
             if (IsCountryNotExist(countryCode))
@@ -35,6 +45,11 @@ namespace EventManager.Services
         }
 
         //Method that reads a string node with city name, search for it and return its id:
+        /// <summary>
+        /// Method that reads a string node with city name, search for it and return its id:
+        /// </summary>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
         public int GetCityIdByName(string cityName)
         {
             if (cityName == null)

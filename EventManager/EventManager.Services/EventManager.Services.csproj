@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\pc\Desktop\EventManager\EventManager 7.0\EventManager.Services\EventManager.Services.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\EventManager.Data.Models\EventManager.Data.Models.csproj" />
     <ProjectReference Include="..\EventManager.Data\EventManager.Data.csproj" />

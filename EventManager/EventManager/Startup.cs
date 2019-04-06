@@ -1,11 +1,9 @@
 ﻿using EventManager.Data;
-using EventManager.Data.Models;
 using EventManager.Services;
 using EventManager.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,12 +35,6 @@ namespace EventManager
 
             services.AddDbContext<EventManagerDbContext>(options =>
                 options.UseSqlServer(ConfigurationData.connectionString, c => c.MigrationsAssembly("EventManager")));
-
-            //services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<EventManagerDbContext>()
-            //    .AddDefaultTokenProviders();
-
-            //services.AddDefaultIdentity<User>()
-            //    .AddEntityFrameworkStores<EventManagerDbContext>();
 
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICityService, CityService>();

@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-EventManager-C2E8C2DA-AA80-48E5-A02A-8BBFFD83EA00</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\pc\Desktop\EventManager\EventManager 7.0\EventManager\EventManager.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.1" />
@@ -20,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="Views\MyEvents\" />
   </ItemGroup>
 
 </Project>

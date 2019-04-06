@@ -9,10 +9,29 @@ namespace EventManager.Services.Contracts
 {
     public interface IEventListService
     {
-        IEnumerable GetAllEvents();
+        //Returns all Events from EventList to current User
+        /// <summary>
+        /// Returns all Events from EventList to current User
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Returns all Events from EventList to current User</returns>
+        IEnumerable GetAllEvents(string username);
 
+        //User add Event to her EventList
+        /// <summary>
+        /// User add Event to her EventList
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="username"></param>
+        /// <returns>Returns EventList Id</returns>
         int AddEvent(int eventId, string username);
 
-        void RemoveEvent(int eventId, int eventListId);
+        //Removed unneeded Event
+        /// <summary>
+        /// Removed unneeded Event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="username"></param>
+        void RemoveEvent(int eventId, string username);
     }
 }

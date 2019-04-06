@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventManager.Services</name>
+    </assembly>
+    <members>
+        <member name="M:EventManager.Services.AddressService.#ctor(EventManager.Data.EventManagerDbContext,EventManager.Services.Contracts.ICityService)">
+            <summary>
+            Address Service Constructor, sets Services and DbContext:
+            </summary>
+            <param name="context"></param>
+            <param name="citiesService"></param>
+        </member>
+        <member name="M:EventManager.Services.AddressService.CreateAddress(System.String,EventManager.ViewModels.Models.CreateCityViewModel)">
+            <summary>
+            Read information about the address and creates it:
+            </summary>
+            <param name="addressName"></param>
+            <param name="cityViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.AddressService.GetAddressIdByName(System.String)">
+            <summary>
+            Method that reads a string node with address name, search for it and return its id:
+            </summary>
+            <param name="addressName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.CityService.#ctor(EventManager.Data.EventManagerDbContext)">
+            <summary>
+            City Service Constructor, sets DbContext:
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:EventManager.Services.CityService.CreateCity(System.String,System.String)">
+            <summary>
+            Read information about the city and creates it:
+            </summary>
+            <param name="cityName"></param>
+            <param name="countryCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.CityService.GetCityIdByName(System.String)">
+            <summary>
+            Method that reads a string node with city name, search for it and return its id:
+            </summary>
+            <param name="cityName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IAddressService.CreateAddress(System.String,EventManager.ViewModels.Models.CreateCityViewModel)">
+            <summary>
+            Create address and City if need
+            </summary>
+            <param name="addressName"></param>
+            <param name="cityViewModel"></param>
+            <returns>Current created AddressId</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IAddressService.GetAddressIdByName(System.String)">
+            <summary>
+            Find address by name
+            </summary>
+            <param name="addressName"></param>
+            <returns>AddressId</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.ICityService.CreateCity(System.String,System.String)">
+            <summary>
+            Create City and connect City with her country
+            </summary>
+            <param name="cityName"></param>
+            <param name="countryCode"></param>
+            <returns>Current created city</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.ICityService.GetCityIdByName(System.String)">
+            <summary>
+            Find City id by name
+            </summary>
+            <param name="cityName"></param>
+            <returns>CityId</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.ICountryService.GetAll">
+            <summary>
+            Return all countries for drop list
+            </summary>
+            <returns>Return all countries for drop list</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IEventListService.GetAllEvents(System.String)">
+            <summary>
+            Returns all Events from EventList to current User
+            </summary>
+            <param name="username"></param>
+            <returns>Returns all Events from EventList to current User</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IEventListService.AddEvent(System.Int32,System.String)">
+            <summary>
+            User add Event to her EventList
+            </summary>
+            <param name="eventId"></param>
+            <param name="username"></param>
+            <returns>Returns EventList Id</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IEventListService.RemoveEvent(System.Int32,System.String)">
+            <summary>
+            Removed unneeded Event
+            </summary>
+            <param name="eventId"></param>
+            <param name="username"></param>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IEventService.CreateEvent(System.String,System.DateTime,System.String,System.String,EventManager.ViewModels.Models.CreateAddressViewModel)">
+            <summary>
+            Create future Event
+            </summary>
+            <param name="eventName"></param>
+            <param name="date"></param>
+            <param name="description"></param>
+            <param name="link"></param>
+            <param name="addressViewModel"></param>
+            <returns>Return Event Id</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IEventService.GetAllEvents">
+            <summary>
+            Returns Collection from all exists Events
+            </summary>
+            <returns>Collection from all exists Events</returns>
+        </member>
+        <member name="M:EventManager.Services.Contracts.IEventService.GetEventDetails(System.Int32)">
+            <summary>
+            Returns ViewModel which show info for all Events
+            </summary>
+            <param name="eventId"></param>
+            <returns>ViewModel which show info for all Events</returns>
+        </member>
+        <member name="M:EventManager.Services.CountryService.#ctor(EventManager.Data.EventManagerDbContext)">
+            <summary>
+            Country Service Constructor, sets DbContext:
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:EventManager.Services.CountryService.GetAll">
+            <summary>
+            CMethod that we use in lists with all countires, that returns all CountryName properties:
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.EventListService.#ctor(EventManager.Data.EventManagerDbContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:EventManager.Services.EventListService.AddEvent(System.Int32,System.String)">
+            <summary>
+            User add Event to her EventList
+            </summary>
+            <param name="eventId"></param>
+            <param name="username"></param>
+            <returns>Returns EventList Id</returns>
+        </member>
+        <member name="M:EventManager.Services.EventListService.RemoveEvent(System.Int32,System.String)">
+            <summary>
+            Removed unneeded Event
+            </summary>
+            <param name="eventId"></param>
+            <param name="username"></param>
+        </member>
+        <member name="M:EventManager.Services.EventListService.GetAllEvents(System.String)">
+            <summary>
+            Returns all Events from EventList to current User
+            </summary>
+            <param name="username"></param>
+            <returns>Returns all Events from EventList to current User</returns>
+        </member>
+        <member name="M:EventManager.Services.EventService.#ctor(EventManager.Data.EventManagerDbContext,EventManager.Services.Contracts.IAddressService)">
+            <summary>
+            Event Service Constructor, sets addressService and DbContext:
+            </summary>
+            <param name="context"></param>
+            <param name="addressService"></param>
+        </member>
+        <member name="M:EventManager.Services.EventService.CreateEvent(System.String,System.DateTime,System.String,System.String,EventManager.ViewModels.Models.CreateAddressViewModel)">
+            <summary>
+            Read information about the event and the address and creates both, if necessary:
+            </summary>
+            <param name="eventName"></param>
+            <param name="date"></param>
+            <param name="description"></param>
+            <param name="link"></param>
+            <param name="addressViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.EventService.GetAllEvents">
+            <summary>
+            Method that we use in our Index.cshtml View class to show all events available:
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventManager.Services.EventService.GetEventDetails(System.Int32)">
+            <summary>
+            Method that we use in our Details.cshtml View class to show all information about the current event:
+            </summary>
+            <param name="eventId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -19,8 +19,12 @@ namespace EventManager.Data
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<EventList> EventLists { get; set; }
+        
 
-
+        /// <summary>
+        /// Cobfigure database
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -30,6 +34,10 @@ namespace EventManager.Data
             base.OnConfiguring(optionsBuilder);
         }
 
+        /// <summary>
+        /// Create many to many relation between Events and EventLists
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

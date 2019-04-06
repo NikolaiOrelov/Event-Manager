@@ -21,9 +21,6 @@ namespace EventManager.Data.Models
         [Required]
         public DateTime Date { get; set; }
 
-        [Range(0, 5)]
-        public byte Raiting { get; set; }
-
         [Required]
         [ForeignKey("Address")]
         public int AddressId { get; set; }

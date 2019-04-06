@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventManager.Data</name>
+    </assembly>
+    <members>
+        <member name="F:EventManager.Data.ConfigurationData.connectionString">
+            <summary>
+            Connection key to database
+            </summary>
+        </member>
+        <member name="M:EventManager.Data.EventManagerDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            Cobfigure database
+            </summary>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="M:EventManager.Data.EventManagerDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Create many to many relation between Events and EventLists
+            </summary>
+            <param name="builder"></param>
+        </member>
+    </members>
+</doc>
